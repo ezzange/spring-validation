@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -183,6 +184,10 @@ public class ValidationItemControllerV2 {
         log.info("target={}", bindingResult.getTarget());
 
         //검증 로직
+//        ValidationUtils.rejectIfEmptyOrWhitespace(bindingResult,"itemName","required");
+        // ValidationUtils를 사용하면 한줄로 코드 작성이 가능하다.
+        // 제공하는 기능 : Empty , 공백 같은 단순한 기능만 제공
+
         if (!StringUtils.hasText(item.getItemName())) {
             bindingResult.rejectValue("itemName", "required");
         }
